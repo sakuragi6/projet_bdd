@@ -1,0 +1,32 @@
+# --- Environnement virtuel ---
+.venv/
+venv/
+
+# --- Secrets et configuration locale ---
+.env
+.env.*
+!.env.example
+
+# --- Fichiers compilés et cache Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# --- Sauvegardes / Dumps MariaDB locaux ---
+*.sql.gz
+*backup*.sql
+*dump*.sql
+
+# --- Vim (fichiers swap, backup, undo, session) ---
+*.swp
+*.swo
+*~
+*.un~
+.netrwhist
+Session.vim
+
+# --- Tests et couverture ---
+.pytest_cache/
+.coverage
+htmlcov/
