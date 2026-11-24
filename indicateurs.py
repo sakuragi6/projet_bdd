@@ -23,6 +23,9 @@ def endettement(dettes_totales, capitaux_propres):
         return None
 
 def moyenne_mobile(liste, fenetre):
+    if fenetre < 1:
+        print("Erreur: Fenêtre incorrecte")
+        return None
     if not liste:
         print("Erreur: Liste vide")
         return None
