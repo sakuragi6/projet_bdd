@@ -1,12 +1,20 @@
 import db
 import modeles
 
+COLONNES_BILAN = (
+    "id, chiffre_affaires, resultat_net, actifs_courants, passifs_courants, "
+    "dettes_totales, capitaux_propres, total_actifs, `date`, societe_sym"
+)
+COLONNES_COURS = "id, dernier_prix, volume, `date`, societe_sym"
+
+
 def read_societe(symbole):
     conn = db.connect()
     try:
         with conn.cursor() as cur:
             cur.execute(
-                "SELECT * FROM societe WHERE symbole = %s",
+                "SELECT symbole, nom, secteur_action, pays "
+                "FROM societe WHERE symbole = %s",
                 (symbole,),
             )
             ligne = cur.fetchone()
@@ -16,37 +24,32 @@ def read_societe(symbole):
     finally:
         conn.close()
 
-def read_bilan(id):
+
+def read_bilans(symbole):
     conn = db.connect()
     try:
         with conn.cursor() as cur:
             cur.execute(
-                "SELECT * FROM bilan WHERE id = %s",
-                (id,),
+                f"SELECT {COLONNES_BILAN} FROM bilan "
+                "WHERE societe_sym = %s ORDER BY `date`",
+                (symbole,),
             )
-            ligne = cur.fetchone()
-        if ligne is None:
-            return None
-        return modeles.Bilan(**ligne)
+            lignes = cur.fetchall()
+        return [modeles.Bilan(**ligne) for ligne in lignes]
     finally:
         conn.close()
 
-def read_cours(id):
+
+def read_cours(symbole):
     conn = db.connect()
     try:
         with conn.cursor() as cur:
             cur.execute(
-                "SELECT * FROM cours WHERE id = %s",
-                (id,),
+                f"SELECT {COLONNES_COURS} FROM cours "
+                "WHERE societe_sym = %s ORDER BY `date`",
+                (symbole,),
             )
-            ligne = cur.fetchone()
-        if ligne is None:
-            return None
-        return modeles.Cours(**ligne)
+            lignes = cur.fetchall()
+        return [modeles.Cours(**ligne) for ligne in lignes]
     finally:
         conn.close()
-
-
-
-
-
