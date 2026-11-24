@@ -9,7 +9,7 @@ def read_societe(symbole):
                 "SELECT * FROM societe WHERE symbole = %s",
                 (symbole,),
             )
-        ligne = cur.fetchone()
+            ligne = cur.fetchone()
         if ligne is None:
             return None
         return modeles.Societe(**ligne)
@@ -24,7 +24,7 @@ def read_bilan(id):
                 "SELECT * FROM bilan WHERE id = %s",
                 (id,),
             )
-        ligne = cur.fetchone()
+            ligne = cur.fetchone()
         if ligne is None:
             return None
         return modeles.Bilan(**ligne)
@@ -39,7 +39,7 @@ def read_cours(id):
                 "SELECT * FROM cours WHERE id = %s",
                 (id,),
             )
-        ligne = cur.fetchone()
+            ligne = cur.fetchone()
         if ligne is None:
             return None
         return modeles.Cours(**ligne)
