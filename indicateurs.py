@@ -22,6 +22,13 @@ def endettement(dettes_totales, capitaux_propres):
         print("Erreur : Calcul impossible")
         return None
 
+def calcul_rendement(cours_debut, cours_fin):
+    try:
+        r = ((cours_fin - cours_debut) / cours_debut) * 100
+        return round(r, 2)
+    except (ZeroDivisionError, TypeError, ValueError):
+        return None
+
 def moyenne_mobile(liste, fenetre):
     if fenetre < 1:
         print("Erreur: Fenêtre incorrecte")
